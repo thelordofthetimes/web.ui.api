@@ -22,5 +22,8 @@
   ],
   "dependencies": {
     "web": "*"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.3.5"
   }
 }
