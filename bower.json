@@ -1,0 +1,26 @@
+{
+  "name": "web.ui.api",
+  "version": "0.0.1",
+  "homepage": "https://github.com/thelordofthetimes/web.ui.api",
+  "description": "web ui api",
+  "keywords": [
+    "javascript",
+    "angular",
+    "ui",
+    "api"
+  ],
+  "authors": [
+    "thelordofthetimes@gmail.com"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "web": "*"
+  }
+}
