@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>web.ui.api</title>
+
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.css"/>
+
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../bower_components/web/script/web.js"></script>
+    <script src="../../dest/script/web.ui.api.js"></script>
+    <script src="main.js"></script>
+</head>
+<body ng-app="app" ng-controller="MainCtrl">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="btn-group">
+                <web-dropdown ng-model="dropdownOne" class="btn btn-default"></web-dropdown>
+                <button class="btn btn-default" ng-click="toggleDropdown($event)">Toggle dropdown one</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
