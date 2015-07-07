@@ -1,5 +1,10 @@
 (function(angular) {
     angular.module('web.ui.api').
+    /**
+     * provide out of element click event callback.
+     * use <tag web-out-click="expression"></tag>.
+     * when click out of <tag> will be call expression
+     */
         directive('webOutClick', ['$document', '$parse', function($document, $parse) {
             /**
              * link function
@@ -10,8 +15,6 @@
             function link(scope, elem, attrs) {
                 var callbackExpression = attrs['webOutClick'];
 
-                // with each click to document, check target contain directive element
-                // if not contain then execute callback expression
                 $document.on('click', function(event) {
                     if (!elem[0].contains(event.target)) {
                         scope.$apply(function() {
@@ -26,14 +29,6 @@
                 restrict: 'A',
                 scope: false,
                 link: link
-            }
-        }]).
-        directive('webOutClickRemove', [function() {
-
-            // define directive
-            return {
-                restrict: 'A',
-                require: '^webOutClick'
             }
         }]);
 })(angular);
