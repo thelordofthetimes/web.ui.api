@@ -9,6 +9,7 @@
                 event.preventDefault();
                 event.stopPropagation();
                 $scope.dropdownOne = !$scope.dropdownOne;
-            }
+            };
+            $scope.date = new Date('2008-02-25');
         }]);
 })(angular);

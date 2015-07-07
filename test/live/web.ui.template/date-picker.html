@@ -1,0 +1,35 @@
+<div>
+    <div>
+        <span class="lead">years</span>
+        <ul class="pagination">
+            <li ng-repeat="y in years" ng-click="year = y" ng-class="{'active': y == year}">
+                <a href="">{{y}}</a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <span class="lead">year</span> {{year}}
+    </div>
+    <div>
+        <span class="lead">month</span> {{month}}
+    </div>
+    <div>
+        <span class="lead">date</span> {{date}}
+    </div>
+    <div>
+        <span class="lead">days</span>
+        <ul class="pagination">
+            <li ng-repeat="d in days" ng-click="date = d" ng-class="{'active': date == d}">
+                <a href="">{{d}}</a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <span class="lead">months</span>
+        <ul class="pagination">
+            <li ng-repeat="m in months" ng-click="month = m" ng-class="{'active': m == month}">
+                <a href="">{{m + 1}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

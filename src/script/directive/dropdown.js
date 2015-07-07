@@ -5,8 +5,8 @@
      * use:
      *  - <tag web-dropdown="" ng-model="dropdownModel"></tag>
      *  - <web-dropdown ng-model="dropdownModel"></web-dropdown>
-     * description:
-     *  - component: dropdown-toggle, dropdown-menu.
+     * descriptions:
+     *  - components: dropdown-toggle, dropdown-menu.
      *  - click to dropdown-toggle: toggle ngModel.
      *  - click out of dropdown: change ngModel to 'false'
      * api:
