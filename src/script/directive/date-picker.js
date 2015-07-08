@@ -6,6 +6,15 @@
         }).
     /**
      * provide date picker controller
+     * internal api:
+     *  - ngModel {DateTime}: value of date picker
+     *  - model {DateTime}: copy value of date picker
+     *  - ctrl {object}: component controller. todo parse that
+     *  - years {Array}: array[16] of int, contains years
+     *  - months: {Array}: array{0..11} of int, contains month
+     *  - days: {Array}: array[DAY_LENGTH] of {object}
+     *   - date {int}: 1..31
+     *   - month {int}: current month, next/prev month
      */
         controller('WebDatePickerCtrl', ['$scope', '$injector', function ($scope, $injector) {
             var $filter = $injector.get('$filter');
@@ -71,15 +80,66 @@
             }
 
             /**
-             * {Array<int>} years in current year page
+             *
+             * @param value {Date}
              */
-            Object.defineProperty($scope, 'years', {
+            function applyModel(value) {
+                $scope.ngModel.setFullYear(value.getFullYear());
+                $scope.ngModel.setMonth(value.getMonth());
+                $scope.ngModel.setDate(value.getDate());
+            }
+
+            /**
+             * get current year
+             * {int} base 0, get/set current year
+             */
+            Object.defineProperty($scope, 'year', {
                 get: function () {
-                    return currentYearPage($scope.ngModel.getFullYear());
+                    return $scope.model.getFullYear();
+                },
+                set: function (value) {
+                    $scope.model.setFullYear(value);
                 }
             });
 
             /**
+             * get current month
+             * {int} base 0, get/set current month
+             */
+            Object.defineProperty($scope, 'month', {
+                get: function () {
+                    return $scope.model.getMonth();
+                },
+                set: function (value) {
+                    $scope.model.setMonth(value);
+                }
+            });
+
+            /**
+             * get current date
+             * {int} base 1, get/set current date
+             */
+            Object.defineProperty($scope, 'date', {
+                get: function () {
+                    return $scope.model.getDate();
+                },
+                set: function (value) {
+                    $scope.model.setDate(value);
+                }
+            });
+
+            /**
+             * get years in current year page
+             * {Array<int>} years in current year page
+             */
+            Object.defineProperty($scope, 'years', {
+                get: function () {
+                    return currentYearPage($scope.model.getFullYear());
+                }
+            });
+
+            /**
+             * get months in year
              * {Array<int>} base 0, months in year
              */
             Object.defineProperty($scope, 'months', {
@@ -89,49 +149,17 @@
             });
 
             /**
-             * {int} base 0, get/set current month
-             */
-            Object.defineProperty($scope, 'month', {
-                get: function () {
-                    return $scope.ngModel.getMonth();
-                },
-                set: function (value) {
-                    $scope.ngModel.setMonth(value);
-                }
-            });
-
-            /**
-             * {int} base 1, get/set current date
-             */
-            Object.defineProperty($scope, 'date', {
-                get: function () {
-                    return $scope.ngModel.getDate();
-                },
-                set: function (value) {
-                    $scope.ngModel.setDate(value);
-                }
-            });
-
-            /**
-             * {int} base 0, get/set current year
-             */
-            Object.defineProperty($scope, 'year', {
-                get: function () {
-                    return $scope.ngModel.getFullYear();
-                },
-                set: function (value) {
-                    $scope.ngModel.setFullYear(value);
-                }
-            });
-
-
-            /**
+             * get {object} description day in current/next/prev month
              * {Array<object>}
              *  - date {int}: 1..31
              *  - month {int}: current month, next/prev month
              */
             $scope.days = [];
-            $scope.$watch('ngModel', function (nv, ov) {
+
+            /**
+             * observer [model] changed year, month to update [$scope.days]
+             */
+            $scope.$watch('model', function (nv, ov) {
                 // check same date
                 var sameDate = nv.getFullYear() == ov.getFullYear() &&
                     nv.getMonth() == ov.getMonth();
@@ -141,8 +169,8 @@
 
                 // generate new days
                 $scope.days.length = 0;
-                var year = $scope.ngModel.getFullYear();
-                var month = $scope.ngModel.getMonth();
+                var year = $scope.model.getFullYear();
+                var month = $scope.model.getMonth();
                 var daysMatrix = $filter('chunk')(daysInMonth(year, month), 7);
 
                 // apply to days
@@ -150,6 +178,9 @@
                     $scope.days.push(d);
                 });
             }, true);
+
+            // public method to scope
+            $scope.applyModel = applyModel;
         }]).
     /**
      * provide background api for date picker
@@ -164,14 +195,6 @@
      *   - year panel: next/prev year page
      *   - month panel: next/prev year
      *   - day panel: next/prev month
-     * internal api:
-     *  - ngModel {DateTime}: value of date picker
-     *  - ctrl {object}: component controller. todo parse that
-     *  - years {Array}: array[16] of int, contains years
-     *  - months: {Array}: array{0..11} of int, contains month
-     *  - days: {Array}: array[DAY_LENGTH] of {object}
-     *   - date {int}: 1..31
-     *   - month {int}: current month, next/prev month
      * public api:
      *  - ngModel {DateTime}: same as internal api
      *  - ctrl {obj}: same as internal api
@@ -187,8 +210,7 @@
                 if (!scope.ngModel) {
                     scope.ngModel = new Date();
                 }
-
-
+                scope.model = angular.copy(scope.ngModel);
             }
 
             // define directive

@@ -1,5 +1,11 @@
 <div>
     <div>
+        <span class="lead">inside</span> {{model | date: 'yyyy-MM-dd'}}
+    </div>
+    <div>
+        <button class="btn btn-default" ng-click="applyModel(model)">apply model</button>
+    </div>
+    <div>
         <span class="lead">years</span>
         <ul class="pagination">
             <li ng-repeat="y in years" ng-click="year = y" ng-class="{'active': y == year}">
