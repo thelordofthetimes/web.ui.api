@@ -56,16 +56,20 @@
                  */
                 scope.days = [];
                 scope.$watch('ngModel', function(nv, ov) {
-                    if (scope.days.length > 0 && (nv.getMonth() == ov.getMonth())) {
+                    // check same date
+                    var sameDate = nv.getFullYear() == ov.getFullYear() &&
+                            nv.getMonth() == ov.getMonth();
+                    if (scope.days.length > 0 && sameDate) {
                         return;
                     }
 
-                    console.log('change');
+                    // generate new days
                     scope.days.length = 0;
                     var year = scope.ngModel.getFullYear();
                     var month = scope.ngModel.getMonth();
-
                     var daysMatrix = $filter('chunk')(daysInMonth(year, month), 7);
+
+                    // apply to days
                     daysMatrix.forEach(function(d) {
                         scope.days.push(d);
                     });

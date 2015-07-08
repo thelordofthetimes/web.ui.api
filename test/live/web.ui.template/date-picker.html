@@ -31,7 +31,7 @@
                 </tr>
                 <tr ng-repeat="row in days">
                     <td ng-repeat="d in row">
-                        <a href="" ng-if="d.month != month" class="btn btn-warning">
+                        <a href="" ng-if="d.month != month" class="btn btn-default disabled">
                             {{d.date}}
                         </a>
                         <a href="" ng-if="d.month == month" class="btn btn-default" ng-click="date = d.date"
