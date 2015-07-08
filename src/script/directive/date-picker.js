@@ -18,15 +18,16 @@
      *  - ctrl {object}: component controller. todo parse that
      *  - years {Array}: array[16] of int, contains years
      *  - months: {Array}: array{0..11} of int, contains month
-     *  - days: {Array}: array[35] of {object}
+     *  - days: {Array}: array[DAY_LENGTH] of {object}
      *   - date {int}: 1..31
      *   - month {int}: current month, next/prev month
      * public api:
      *  - ngModel {DateTime}: same as internal api
      *  - ctrl {obj}: same as internal api
      */
-        directive('webDatePicker', [function () {
-            var MONTHS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+        directive('webDatePicker', ['$filter', function ($filter) {
+            const MONTHS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+            const DAY_LENGTH = 42; // 7x6
 
             /**
              * link function
@@ -38,10 +39,6 @@
                 if (!scope.ngModel) {
                     scope.ngModel = new Date();
                 }
-
-                scope.$watch('ngModel', function(nv, ov) {
-                    console.log('ngModel', nv, ov);
-                });
 
                 /**
                  * {Array<int>} years in current year page
@@ -58,11 +55,18 @@
                  *  - month {int}: current month, next/prev month
                  */
                 scope.days = [];
-                scope.$watch('ngModel', function() {
+                scope.$watch('ngModel', function(nv, ov) {
+                    if (scope.days.length > 0 && (nv.getMonth() == ov.getMonth())) {
+                        return;
+                    }
+
+                    console.log('change');
                     scope.days.length = 0;
                     var year = scope.ngModel.getFullYear();
                     var month = scope.ngModel.getMonth();
-                    (daysInMonth(year, month)).forEach(function(d) {
+
+                    var daysMatrix = $filter('chunk')(daysInMonth(year, month), 7);
+                    daysMatrix.forEach(function(d) {
                         scope.days.push(d);
                     });
                 }, true);
@@ -137,7 +141,7 @@
                 var dayInWeek = date.getDay();
                 date.setMonth(month);
                 var numberOfDayPreMonth = date.getDate();
-                for (var index = 0; index < dayInWeek; index++) {
+                for (var index = 1; index < dayInWeek; index++) {
                     days.unshift({
                         month: month - 1,
                         date: numberOfDayPreMonth - index
@@ -146,7 +150,7 @@
 
                 // add days in next month
                 var index = 1;
-                while (days.length < 35) {
+                while (days.length < DAY_LENGTH) {
                     days.push({
                         month: month + 1,
                         date: index
@@ -161,12 +165,12 @@
             /**
              * get array year in current year page
              * @param year
-             * @returns {Array<int>} 35 year in current year page
+             * @returns {Array<int>} DAY_LENGTH year in current year page
              */
             function currentYearPage(year) {
-                var startYear = year - year % 35;
+                var startYear = year - year % DAY_LENGTH;
                 var years = [];
-                for (var index = 0; index < 35; index++) {
+                for (var index = 0; index < DAY_LENGTH; index++) {
                     years.push(startYear + index);
                 }
                 return years;

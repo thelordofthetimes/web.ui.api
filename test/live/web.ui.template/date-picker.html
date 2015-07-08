@@ -18,12 +18,30 @@
     </div>
     <div>
         <span class="lead">days</span>
-        {{days.length}}
-        <ul class="pagination">
-            <li ng-repeat="d in days" ng-click="date = d.date" ng-class="{'active': d.month == month && d.date == date}">
-                <a href="">{{d.date}}</a>
-            </li>
-        </ul>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <td>Sun</td>
+                    <td>Mon</td>
+                    <td>Tue</td>
+                    <td>Wed</td>
+                    <td>Thu</td>
+                    <td>Fri</td>
+                    <td>Sat</td>
+                </tr>
+                <tr ng-repeat="row in days">
+                    <td ng-repeat="d in row">
+                        <a href="" ng-if="d.month != month" class="btn btn-warning">
+                            {{d.date}}
+                        </a>
+                        <a href="" ng-if="d.month == month" class="btn btn-default" ng-click="date = d.date"
+                           ng-class="{'btn-primary': d.month == month && d.date == date}">
+                            {{d.date}}
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div>
         <span class="lead">months</span>
