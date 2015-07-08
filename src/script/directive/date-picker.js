@@ -13,13 +13,16 @@
      *   - year panel: next/prev year page
      *   - month panel: next/prev year
      *   - day panel: next/prev month
-     * api:
+     * internal api:
      *  - ngModel {DateTime}: value of date picker
      *  - ctrl {object}: component controller. todo parse that
      *  - years {Array}: array[16] of int, contains years
      *  - months: {Array}: array{0..11} of int, contains month
      *  - days: {Array}: array[36] of int, contains day in current month,
      *    prev/next month
+     * public api:
+     *  - ngModel {DateTime}: same as internal api
+     *  - ctrl {obj}: same as internal api
      */
         directive('webDatePicker', [function () {
             var MONTHS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];

@@ -27,7 +27,7 @@
     <div>
         <span class="lead">months</span>
         <ul class="pagination">
-            <li ng-repeat="m in months" ng-click="month = m" ng-class="{'active': m == month}">
+            <li ng-repeat="m in months" ng-click="month = m" ng-class="{'active': m == ngModel.getMonth()}">
                 <a href="">{{m + 1}}</a>
             </li>
         </ul>
