@@ -3,13 +3,11 @@ web ui api
 
 # Requirements
 
-Javascript virtual machine, include package manager: [nodejs]()
+Javascript virtual machine, include package manager: [nodejs](https://nodejs.org/)
 
-Other package manager: [bower]()
+Distributed revision control system: [git](https://git-scm.com/downloads)
 
-Distributed revision control system: [git]()
-
-Global installed node package: [bower](), [gulp]()
+Global installed node package: [bower](http://bower.io/), [gulp](http://gulpjs.com/)
 
 # Installation
 
