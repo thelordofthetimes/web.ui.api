@@ -18,16 +18,17 @@
     </div>
     <div>
         <span class="lead">days</span>
+        {{days.length}}
         <ul class="pagination">
-            <li ng-repeat="d in days" ng-click="date = d" ng-class="{'active': date == d}">
-                <a href="">{{d}}</a>
+            <li ng-repeat="d in days" ng-click="date = d.date" ng-class="{'active': d.month == month && d.date == date}">
+                <a href="">{{d.date}}</a>
             </li>
         </ul>
     </div>
     <div>
         <span class="lead">months</span>
         <ul class="pagination">
-            <li ng-repeat="m in months" ng-click="month = m" ng-class="{'active': m == ngModel.getMonth()}">
+            <li ng-repeat="m in months" ng-click="month = m" ng-class="{'active': m == month}">
                 <a href="">{{m + 1}}</a>
             </li>
         </ul>

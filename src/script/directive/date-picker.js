@@ -18,8 +18,9 @@
      *  - ctrl {object}: component controller. todo parse that
      *  - years {Array}: array[16] of int, contains years
      *  - months: {Array}: array{0..11} of int, contains month
-     *  - days: {Array}: array[36] of int, contains day in current month,
-     *    prev/next month
+     *  - days: {Array}: array[35] of {object}
+     *   - date {int}: 1..31
+     *   - month {int}: current month, next/prev month
      * public api:
      *  - ngModel {DateTime}: same as internal api
      *  - ctrl {obj}: same as internal api
@@ -38,6 +39,10 @@
                     scope.ngModel = new Date();
                 }
 
+                scope.$watch('ngModel', function(nv, ov) {
+                    console.log('ngModel', nv, ov);
+                });
+
                 /**
                  * {Array<int>} years in current year page
                  */
@@ -48,16 +53,19 @@
                 });
 
                 /**
-                 * {Array<int>} days in month, next/prev month
-                 * todo add days in next/prev month
+                 * {Array<object>}
+                 *  - date {int}: 1..31
+                 *  - month {int}: current month, next/prev month
                  */
-                Object.defineProperty(scope, 'days', {
-                    get: function () {
-                        var year = scope.ngModel.getFullYear();
-                        var month = scope.ngModel.getMonth();
-                        return daysInMonth(year, month);
-                    }
-                });
+                scope.days = [];
+                scope.$watch('ngModel', function() {
+                    scope.days.length = 0;
+                    var year = scope.ngModel.getFullYear();
+                    var month = scope.ngModel.getMonth();
+                    (daysInMonth(year, month)).forEach(function(d) {
+                        scope.days.push(d);
+                    });
+                }, true);
 
                 /**
                  * {Array<int>} base 0, months in year
@@ -109,26 +117,56 @@
              * get array day in month
              * @param year {int} base 0
              * @param month {int} base 0
-             * @returns {Array<int>} 36 days in month, prev/next month
+             * @returns {Array<object>} 
+             *  - date {int}: 1..31
+             *  - month {int}: current month, prev/next month
              */
             function daysInMonth(year, month) {
-                var numberOfDay = new Date(year, month + 1, 0).getDate();
+                // generate days in month
+                var date = new Date(year, month + 1, 0);
+                var numberOfDay = date.getDate();
                 var days = [];
                 for (var index = 1; index <= numberOfDay; index++) {
-                    days.push(index);
+                    days.push({
+                        month: month,
+                        date: index
+                    });
                 }
+
+                // add days in prev month
+                var dayInWeek = date.getDay();
+                date.setMonth(month);
+                var numberOfDayPreMonth = date.getDate();
+                for (var index = 0; index < dayInWeek; index++) {
+                    days.unshift({
+                        month: month - 1,
+                        date: numberOfDayPreMonth - index
+                    });
+                }
+
+                // add days in next month
+                var index = 1;
+                while (days.length < 35) {
+                    days.push({
+                        month: month + 1,
+                        date: index
+                    });
+                    index++;
+                }
+
+                // result
                 return days;
             }
 
             /**
              * get array year in current year page
              * @param year
-             * @returns {Array<int>} 36 year in current year page
+             * @returns {Array<int>} 35 year in current year page
              */
             function currentYearPage(year) {
-                var startYear = year - year % 36;
+                var startYear = year - year % 35;
                 var years = [];
-                for (var index = 0; index < 36; index++) {
+                for (var index = 0; index < 35; index++) {
                     years.push(startYear + index);
                 }
                 return years;
