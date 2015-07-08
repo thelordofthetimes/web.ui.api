@@ -37,11 +37,12 @@
                 </tr>
                 <tr ng-repeat="row in days">
                     <td ng-repeat="d in row">
-                        <a href="" ng-if="d.month != month" class="btn btn-default disabled">
+                        <a href="" ng-if="d.month != month" class="btn btn-default btn-block disabled">
                             {{d.date}}
                         </a>
-                        <a href="" ng-if="d.month == month" class="btn btn-default" ng-click="date = d.date"
-                           ng-class="{'btn-primary': d.month == month && d.date == date}">
+                        <a href="" ng-if="d.month == month" class="btn btn-default btn-block"
+                           ng-click="date = d.date"
+                           ng-class="{'btn-primary': d.month == month && d.date == date, 'btn-warning': (+model != +ngModel) && (d.month == month && d.date == date)}">
                             {{d.date}}
                         </a>
                     </td>

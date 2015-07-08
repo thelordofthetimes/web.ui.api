@@ -15,6 +15,8 @@
      *  - days: {Array}: array[DAY_LENGTH] of {object}
      *   - date {int}: 1..31
      *   - month {int}: current month, next/prev month
+     *  - month {int}: get/set month
+     *  - applyModel {function}: update ngModel
      */
         controller('WebDatePickerCtrl', ['$scope', '$injector', function ($scope, $injector) {
             var $filter = $injector.get('$filter');
@@ -80,13 +82,25 @@
             }
 
             /**
-             *
+             * apply [$scope.model] to [$scope.ngModel]
              * @param value {Date}
              */
             function applyModel(value) {
                 $scope.ngModel.setFullYear(value.getFullYear());
                 $scope.ngModel.setMonth(value.getMonth());
                 $scope.ngModel.setDate(value.getDate());
+            }
+
+            /**
+             * modify date in month to resolve jump month
+             * @param oldValue {Date}
+             * @param newYear {int} base 0
+             * @param newMonth {int} base 0
+             * @returns {number}
+             */
+            function modifyDate(oldValue, newYear, newMonth) {
+                var newDate = new Date(newYear, newMonth + 1, 0);
+                return Math.min(oldValue.getDate(), newDate.getDate());
             }
 
             /**
@@ -98,6 +112,8 @@
                     return $scope.model.getFullYear();
                 },
                 set: function (value) {
+                    var monthDay = modifyDate($scope.model, value, $scope.model.getMonth());
+                    $scope.model.setDate(monthDay);
                     $scope.model.setFullYear(value);
                 }
             });
@@ -111,6 +127,8 @@
                     return $scope.model.getMonth();
                 },
                 set: function (value) {
+                    var monthDay = modifyDate($scope.model, $scope.model.getFullYear(), value);
+                    $scope.model.setDate(monthDay);
                     $scope.model.setMonth(value);
                 }
             });
