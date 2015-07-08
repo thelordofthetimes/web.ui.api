@@ -6,14 +6,6 @@
         <button class="btn btn-default" ng-click="applyModel(model)">apply model</button>
     </div>
     <div>
-        <span class="lead">years</span>
-        <ul class="pagination">
-            <li ng-repeat="y in years" ng-click="year = y" ng-class="{'active': y == year}">
-                <a href="">{{y}}</a>
-            </li>
-        </ul>
-    </div>
-    <div>
         <span class="lead">year</span> {{year}}
         <button class="btn btn-default" ng-click="year = year - 1">prev</button>
         <button class="btn btn-default" ng-click="year = year + 1">next</button>
@@ -26,6 +18,21 @@
     </div>
     <div>
         <span class="lead">date</span> {{date}}
+    </div>
+    <div>
+        <span class="lead">years</span>
+        <div class="table-responsive">
+            <table class="table">
+                <tr ng-repeat="row in years">
+                    <td ng-repeat="y in row">
+                        <a href="" class="btn btn-default btn-block" ng-click="year = y"
+                           ng-class="{'btn-primary': y == year}">
+                            {{y}}
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div>
         <span class="lead">months</span>

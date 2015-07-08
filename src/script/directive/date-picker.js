@@ -68,20 +68,6 @@
             }
 
             /**
-             * get array year in current year page
-             * @param year
-             * @returns {Array<int>} DAY_LENGTH year in current year page
-             */
-            function currentYearPage(year) {
-                var startYear = year - year % datePickerConst.DAY_LENGTH;
-                var years = [];
-                for (var index = 0; index < datePickerConst.DAY_LENGTH; index++) {
-                    years.push(startYear + index);
-                }
-                return years;
-            }
-
-            /**
              * apply [$scope.model] to [$scope.ngModel]
              * @param value {Date}
              */
@@ -101,6 +87,21 @@
             function modifyDate(oldValue, newYear, newMonth) {
                 var newDate = new Date(newYear, newMonth + 1, 0);
                 return Math.min(oldValue.getDate(), newDate.getDate());
+            }
+
+            /**
+             * get page of year
+             * @param pageSize {int}
+             * @param pageIndex {int}
+             * @returns {Array<int>}
+             */
+            function yearPaging(pageSize, pageIndex) {
+                var startYear = (pageIndex - 1) * pageSize;
+                var years = [];
+                for (var index = 0; index < pageSize; index++) {
+                    years.push(startYear + index);
+                }
+                return years;
             }
 
             /**
@@ -150,11 +151,29 @@
              * get years in current year page
              * {Array<int>} years in current year page
              */
-            Object.defineProperty($scope, 'years', {
-                get: function () {
-                    return currentYearPage($scope.model.getFullYear());
+            $scope.yearPageIndex = 0;
+            $scope.yearPageSize = 12;
+            $scope.years = [];
+            $scope.$watch('[yearPageSize, yearPageIndex]', function (nv) {
+                $scope.years.length = 0;
+                console.log(nv);
+                var rows = $filter('chunk')(yearPaging(nv[0], nv[1]), 4);
+                rows.forEach(function(row) {
+                    $scope.years.push(row);
+                });
+            }, true);
+            /**
+             *
+             * @param nv {Date}
+             * @param ov {Date}
+             */
+            function modelYear(nv, ov) {
+                var yearOutRange = nv.getFullYear() != ov.getFullYear();
+                if ($scope.yearPageIndex == 0 || yearOutRange) {
+                    $scope.yearPageIndex = Math.ceil((nv.getFullYear() + 1)/12);
                 }
-            });
+            }
+            $scope.$watch('model', modelYear, true);
 
             /**
              * get months in year
