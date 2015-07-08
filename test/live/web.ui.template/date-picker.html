@@ -15,12 +15,32 @@
     </div>
     <div>
         <span class="lead">year</span> {{year}}
+        <button class="btn btn-default" ng-click="year = year - 1">prev</button>
+        <button class="btn btn-default" ng-click="year = year + 1">next</button>
+
     </div>
     <div>
-        <span class="lead">month</span> {{month}}
+        <span class="lead">month</span> {{month + 1}}
+        <button class="btn btn-default" ng-click="month = month - 1">prev</button>
+        <button class="btn btn-default" ng-click="month = month + 1">next</button>
     </div>
     <div>
         <span class="lead">date</span> {{date}}
+    </div>
+    <div>
+        <span class="lead">months</span>
+        <div class="table-responsive">
+            <table class="table">
+                <tr ng-repeat="row in months">
+                    <td ng-repeat="m in row">
+                        <a href="" class="btn btn-default btn-block" ng-click="month = m"
+                           ng-class="{'btn-primary': m == month, 'btn-success': m == month && (m != ngModel.getMonth())}">
+                            {{m + 1}}
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div>
         <span class="lead">days</span>
@@ -49,13 +69,5 @@
                 </tr>
             </table>
         </div>
-    </div>
-    <div>
-        <span class="lead">months</span>
-        <ul class="pagination">
-            <li ng-repeat="m in months" ng-click="month = m" ng-class="{'active': m == month}">
-                <a href="">{{m + 1}}</a>
-            </li>
-        </ul>
     </div>
 </div>

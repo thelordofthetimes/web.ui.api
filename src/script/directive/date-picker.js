@@ -160,11 +160,7 @@
              * get months in year
              * {Array<int>} base 0, months in year
              */
-            Object.defineProperty($scope, 'months', {
-                get: function () {
-                    return datePickerConst.MONTHS;
-                }
-            });
+            $scope.months = $filter('chunk')(datePickerConst.MONTHS, 4);
 
             /**
              * get {object} description day in current/next/prev month
@@ -175,7 +171,7 @@
             $scope.days = [];
 
             /**
-             * observer [model] changed year, month to update [$scope.days]
+             * observer [model] changed year, month to update [$scope.days].
              */
             $scope.$watch('model', function (nv, ov) {
                 // check same date
