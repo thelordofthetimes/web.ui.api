@@ -1,5 +1,4 @@
 # web.ui.api
-web ui api
 
 # Requirements
 
