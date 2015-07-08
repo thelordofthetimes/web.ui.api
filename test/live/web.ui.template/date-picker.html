@@ -42,7 +42,7 @@
                         </a>
                         <a href="" ng-if="d.month == month" class="btn btn-default btn-block"
                            ng-click="date = d.date"
-                           ng-class="{'btn-primary': d.month == month && d.date == date, 'btn-warning': (+model != +ngModel) && (d.month == month && d.date == date)}">
+                           ng-class="{'btn-primary': d.month == month && d.date == date, 'btn-success': (+model != +ngModel) && (d.month == month && d.date == date)}">
                             {{d.date}}
                         </a>
                     </td>
