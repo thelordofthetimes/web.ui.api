@@ -31,7 +31,7 @@
             $scope.pageSize = yearPickerConst.PAGE_SIZE;
             $scope.pageIndex = 1;
 
-            $scope.updateModel = function (value) {
+            $scope.applyModel = function (value) {
                 $scope.ngModel = value;
             };
 
@@ -42,6 +42,7 @@
                     $scope.years.push(row);
                 });
             }, true);
+            $scope.$watch('model', function(nv, ov) {console.log(nv, ov)});
         }]).
         directive('webYearPicker', [function () {
             return {
