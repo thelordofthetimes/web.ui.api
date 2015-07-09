@@ -27,9 +27,20 @@
             var yearPaging = $injector.get('web.ui.api.yearPaging');
             var yearPickerConst = $injector.get('yearPickerConst');
 
+            // initialize value
             $scope.years = [];
-            $scope.pageSize = yearPickerConst.PAGE_SIZE;
-            $scope.pageIndex = 1;
+            if (!$scope.pageSize) {
+                $scope.pageSize = yearPickerConst.PAGE_SIZE;
+            }
+            if (!$scope.pageIndex) {
+                $scope.pageIndex = 1;
+            }
+            // go to current time
+            if ($scope.pageIndex == -1) {
+                var date = new Date();
+                var year = date.getFullYear();
+                $scope.pageIndex = Math.ceil(year / $scope.pageSize);
+            }
 
             $scope.applyModel = function (value) {
                 console.log(value);
@@ -46,10 +57,10 @@
 
             var model = angular.copy($scope.ngModel);
             Object.defineProperty($scope, 'model', {
-                get: function() {
+                get: function () {
                     return model;
                 },
-                set: function(value) {
+                set: function (value) {
                     model = value;
                 }
             });
@@ -59,13 +70,12 @@
                 restrict: 'AE',
                 templateUrl: 'web.ui.template/year-picker.html',
                 scope: {
-                    ngModel: '=?'
+                    ngModel: '=?',
+                    pageSize: '=?',
+                    pageIndex: '=?'
                 },
                 controller: 'WebYearPickerCtrl',
                 link: function (scope, elem, attrs) {
-                    if (!scope.ngModel) {
-                        scope.ngModel = 0;
-                    }
                 }
             }
         }])

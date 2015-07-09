@@ -24,9 +24,9 @@
 
     <!--year picker-->
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12" ng-init="index=-1; year = date.getFullYear()">
             <span class="lead">outside</span> {{year}}
-            <web-year-picker ng-model="year"></web-year-picker>
+            <web-year-picker ng-model="year" page-size="12" page-index="index"></web-year-picker>
         </div>
     </div>
 
