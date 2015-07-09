@@ -7,9 +7,10 @@
     </div>
     <div>
         <span class="lead">year</span> {{year}}
+        <button class="btn btn-default" ng-click="yearPageIndex = yearPageIndex - 1">prev page</button>
         <button class="btn btn-default" ng-click="year = year - 1">prev</button>
         <button class="btn btn-default" ng-click="year = year + 1">next</button>
-
+        <button class="btn btn-default" ng-click="yearPageIndex = yearPageIndex + 1">next page</button>
     </div>
     <div>
         <span class="lead">month</span> {{month + 1}}
