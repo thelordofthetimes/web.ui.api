@@ -6,15 +6,11 @@
         <button type="button" class="btn btn-default" ng-click="applyModel(model)">apply model</button>
     </div>
     <div class="table-responsive">
-        <table class="table">
-            <tr ng-repeat="row in years">
-                <td ng-repeat="y in row">
-                    <button type="button" class="btn btn-default btn-block" ng-click="model = y"
-                       ng-class="{'btn-primary': y == model}">
-                        {{y}}
-                    </button>
-                </td>
-            </tr>
-        </table>
+        <div class="col-xs-3" ng-repeat="year in years">
+            <button type="button" class="btn btn-default btn-block" ng-click="model = year"
+                    ng-class="{'btn-primary': year == model}">
+                {{year}}
+            </button>
+        </div>
     </div>
 </div>

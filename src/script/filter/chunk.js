@@ -5,7 +5,7 @@
                 if (!angular.isArray(input)) {
                     return;
                 }
-
+console.log(input, length);
                 // chunk
                 var result = [];
                 var i, j;

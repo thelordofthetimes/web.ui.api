@@ -48,11 +48,7 @@
             };
 
             $scope.$watch('[pageSize, pageIndex]', function (nv) {
-                $scope.years.length = 0;
-                var rows = $filter('chunk')(yearPaging(nv[0], nv[1]), 4);
-                rows.forEach(function (row) {
-                    $scope.years.push(row);
-                });
+                $scope.years = yearPaging(nv[0], nv[1]);
             }, true);
 
             var model = angular.copy($scope.ngModel);
