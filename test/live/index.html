@@ -21,12 +21,22 @@
             </div>
         </div>
     </div>
+
+    <!--year picker-->
+    <div class="row">
+        <div class="col-xs-12">
+            <web-year-picker ng-model="year"></web-year-picker>
+        </div>
+    </div>
+
+    <!--date picker-->
     <div class="row">
         <div class="col-xs-12">
             <span class="lead">outside</span> {{date | date: 'yyyy-MM-dd'}}
             <web-date-picker ng-model="date"></web-date-picker>
         </div>
     </div>
+
 </div>
 </body>
 </html>
