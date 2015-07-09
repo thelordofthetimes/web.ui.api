@@ -1,11 +1,75 @@
-<div ng-init="pageIndex = 1">
-    <span class="lead">year</span> {{model}}
-    <div class="btn-group">
-        <button type="button" class="btn btn-default" ng-click="pageIndex = pageIndex - 1">pre page</button>
-        <button type="button" class="btn btn-default" ng-click="pageIndex = pageIndex + 1">next page</button>
-        <button type="button" class="btn btn-default" ng-click="applyModel(model)">apply model</button>
+<div class="panel panel-default" ng-init="pageIndex = -1">
+    <div class="panel-heading">
+        webYearPicker
     </div>
-    <div class="table-responsive">
+    <div class="panel-body">
+        <!--properties-->
+        <div class="form-horizontal">
+            <!--page size-->
+            <div class="form-group">
+                <label class="col-xs-4 control-label">pageSize</label>
+                <div class="col-xs-8">
+                    <input type="number" class="form-control" ng-model="pageSize"/>
+                </div>
+            </div>
+
+            <!--page index-->
+            <div class="form-group">
+                <label class="col-xs-4 control-label">pageIndex</label>
+                <div class="col-xs-8">
+                    <input type="number" class="form-control" ng-model="pageIndex"/>
+                </div>
+            </div>
+
+            <!--model-->
+            <div class="form-group">
+                <label class="col-xs-4 control-label">model (year)</label>
+                <div class="col-xs-8">
+                    <input type="number" class="form-control" ng-model="model"/>
+                </div>
+            </div>
+
+            <!--ngModel-->
+            <div class="form-group">
+                <label class="col-xs-4 control-label">ngModel (year)</label>
+                <div class="col-xs-8">
+                    <input type="number" class="form-control" ng-model="ngModel"/>
+                </div>
+            </div>
+
+            <!--prev page-->
+            <div class="form-group">
+                <label class="col-xs-4 control-label">pre page</label>
+                <div class="col-xs-8">
+                    <button type="button" class="btn btn-default btn-block" ng-click="pageIndex = pageIndex - 1">
+                        pageIndex = pageIndex - 1
+                    </button>
+                </div>
+            </div>
+
+            <!--next page-->
+            <div class="form-group">
+                <label class="col-xs-4 control-label">next page</label>
+                <div class="col-xs-8">
+                    <button type="button" class="btn btn-default btn-block" ng-click="pageIndex = pageIndex + 1">
+                        pageIndex = pageIndex + 1
+                    </button>
+                </div>
+            </div>
+
+            <!--apply model-->
+            <div class="form-group">
+                <label class="col-xs-4 control-label">apply model</label>
+                <div class="col-xs-8">
+                    <button type="button" class="btn btn-default btn-block" ng-click="applyModel(model)">
+                        applyModel(model)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--ui-->
+        <hr/>
         <div class="col-xs-3" ng-repeat="year in years">
             <button type="button" class="btn btn-default btn-block" ng-click="model = year"
                     ng-class="{'btn-primary': year == model}">

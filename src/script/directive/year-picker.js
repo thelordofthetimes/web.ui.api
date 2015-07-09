@@ -26,15 +26,41 @@
             var $filter = $injector.get('$filter');
             var yearPaging = $injector.get('web.ui.api.yearPaging');
             var yearPickerConst = $injector.get('yearPickerConst');
+            var _pageIndex;
+            var _pageSize;
 
             // initialize value
             $scope.years = [];
+
+            Object.defineProperty($scope, 'pageSize', {
+                get: function () {
+                    return _pageSize;
+                },
+                set: function (value) {
+                    if (value > 0) {
+                        _pageSize = value;
+                    }
+                }
+            });
             if (!$scope.pageSize) {
                 $scope.pageSize = yearPickerConst.PAGE_SIZE;
             }
+
+
             if (!$scope.pageIndex) {
                 $scope.pageIndex = 1;
             }
+
+            Object.defineProperty($scope, 'pageIndex', {
+                get: function () {
+                    return _pageIndex;
+                },
+                set: function (value) {
+                    if (value >= -1) {
+                        _pageIndex = value;
+                    }
+                }
+            });
 
             $scope.applyModel = function (value) {
                 console.log(value);
@@ -48,7 +74,7 @@
                     var year = date.getFullYear();
                     pageIndex = Math.ceil(year / $scope.pageSize);
                 }
-console.log(nv, pageIndex);
+
                 $scope.pageIndex = pageIndex;
                 $scope.years = yearPaging(nv[0], pageIndex);
             }, true);
