@@ -1,4 +1,19 @@
 <div>
-    <span class="lead">year</span>
-    {{ngModel}}
+    <span class="lead">year</span> {{model}}
+    <div class="btn-group">
+        <button type="button" class="btn btn-default" ng-click="pageIndex = pageIndex - 1">pre page</button>
+        <button type="button" class="btn btn-default" ng-click="pageIndex = pageIndex + 1">next page</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <tr ng-repeat="row in years">
+                <td ng-repeat="y in row">
+                    <a href="" class="btn btn-default btn-block" ng-click="model = y; updateModel(model)"
+                       ng-class="{'btn-primary': y == model}">
+                        {{y}}
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
