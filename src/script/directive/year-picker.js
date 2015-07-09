@@ -35,12 +35,6 @@
             if (!$scope.pageIndex) {
                 $scope.pageIndex = 1;
             }
-            // go to current time
-            if ($scope.pageIndex == -1) {
-                var date = new Date();
-                var year = date.getFullYear();
-                $scope.pageIndex = Math.ceil(year / $scope.pageSize);
-            }
 
             $scope.applyModel = function (value) {
                 console.log(value);
@@ -48,7 +42,15 @@
             };
 
             $scope.$watch('[pageSize, pageIndex]', function (nv) {
-                $scope.years = yearPaging(nv[0], nv[1]);
+                var pageIndex = nv[1];
+                if (pageIndex == -1) {
+                    var date = new Date();
+                    var year = date.getFullYear();
+                    pageIndex = Math.ceil(year / $scope.pageSize);
+                }
+console.log(nv, pageIndex);
+                $scope.pageIndex = pageIndex;
+                $scope.years = yearPaging(nv[0], pageIndex);
             }, true);
 
             var model = angular.copy($scope.ngModel);
@@ -66,9 +68,7 @@
                 restrict: 'AE',
                 templateUrl: 'web.ui.template/year-picker.html',
                 scope: {
-                    ngModel: '=?',
-                    pageSize: '=?',
-                    pageIndex: '=?'
+                    ngModel: '=?'
                 },
                 controller: 'WebYearPickerCtrl',
                 link: function (scope, elem, attrs) {
