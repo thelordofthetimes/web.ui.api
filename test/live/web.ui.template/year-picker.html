@@ -9,10 +9,10 @@
         <table class="table">
             <tr ng-repeat="row in years">
                 <td ng-repeat="y in row">
-                    <a href="" class="btn btn-default btn-block" ng-click="model = y"
+                    <button type="button" class="btn btn-default btn-block" ng-click="model = y"
                        ng-class="{'btn-primary': y == model}">
                         {{y}}
-                    </a>
+                    </button>
                 </td>
             </tr>
         </table>

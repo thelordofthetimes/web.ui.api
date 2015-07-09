@@ -23,15 +23,16 @@
             return yearPaging;
         }]).
         controller('WebYearPickerCtrl', ['$scope', '$injector', function ($scope, $injector) {
-            var yearPickerConst = $injector.get('yearPickerConst');
             var $filter = $injector.get('$filter');
             var yearPaging = $injector.get('web.ui.api.yearPaging');
+            var yearPickerConst = $injector.get('yearPickerConst');
 
             $scope.years = [];
             $scope.pageSize = yearPickerConst.PAGE_SIZE;
             $scope.pageIndex = 1;
 
             $scope.applyModel = function (value) {
+                console.log(value);
                 $scope.ngModel = value;
             };
 
@@ -42,7 +43,16 @@
                     $scope.years.push(row);
                 });
             }, true);
-            $scope.$watch('model', function(nv, ov) {console.log(nv, ov)});
+
+            var model = angular.copy($scope.ngModel);
+            Object.defineProperty($scope, 'model', {
+                get: function() {
+                    return model;
+                },
+                set: function(value) {
+                    model = value;
+                }
+            });
         }]).
         directive('webYearPicker', [function () {
             return {
@@ -56,7 +66,6 @@
                     if (!scope.ngModel) {
                         scope.ngModel = 0;
                     }
-                    scope.model = angular.copy(scope.ngModel);
                 }
             }
         }])
