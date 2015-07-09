@@ -103,6 +103,7 @@
 
             // public method to scope
             $scope.applyModel = applyModel;
+            $scope.nowPageIndex = nowPageIndex;
 
             // initialize
             if (!$scope.pageSize) {
