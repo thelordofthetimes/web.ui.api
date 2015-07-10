@@ -70,6 +70,15 @@
                 }
             });
 
+            /**
+             * {int} get now date
+             */
+            Object.defineProperty($scope, 'now', {
+                get: function() {
+                    return new Date();
+                }
+            });
+
 
             /**
              * apply model to ngModel

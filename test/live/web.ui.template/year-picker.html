@@ -37,12 +37,14 @@
                 </div>
             </div>
 
-            <!--now page index-->
+            <!--now year-->
             <div class="form-group">
                 <label class="col-xs-4 control-label">go to now page index</label>
                 <div class="col-xs-8">
-                    <button type="button" class="btn btn-default btn-block" ng-click="pageIndex = nowPageIndex(pageSize)">
-                        pageIndex = nowPageIndex(pageSize)
+                    <button type="button" class="btn btn-default btn-block"
+                            ng-click="pageIndex = nowPageIndex(pageSize); model = now.getFullYear()">
+                        pageIndex = nowPageIndex(pageSize);
+                        model = now.getFullYear();
                     </button>
                 </div>
             </div>
