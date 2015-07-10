@@ -1,6 +1,6 @@
-(function(angular) {
+(function (angular) {
     angular.module('web.ui.api').
-        service('web.ui.api.dayInMonth', [function() {
+        service('web.ui.api.dayInMonth', [function () {
             /**
              * get array day in month
              * @param year {int} base 0
@@ -49,7 +49,7 @@
             // define service
             return dayInMonth;
         }]).
-        controller('WebDayPickerCtrl', ['$scope', '$injector', function($scope, $injector) {
+        controller('WebDayPickerCtrl', ['$scope', '$injector', function ($scope, $injector) {
             var dayInMonth = $injector.get('web.ui.api.dayInMonth');
             var _days;
 
@@ -57,16 +57,29 @@
              * {Array<int>} get array of days in year-month
              */
             Object.defineProperty($scope, 'days', {
-                get: function() { return _days; }
+                get: function () {
+                    return _days;
+                }
             });
 
+            /**
+             * apply value to [ngModel]
+             * @param value
+             */
+            function applyModel(value) {
+                $scope.ngModel = value;
+            }
+
+            // public method to scope
+            $scope.applyModel = applyModel;
+
             // observer year, month to regenerate days
-            $scope.$watch('[year, month]', function(nv) {
+            $scope.$watch('[year, month]', function (nv) {
                 _days = dayInMonth(nv[0], nv[1]);
             }, true);
 
         }]).
-        directive('webDayPicker', [function() {
+        directive('webDayPicker', [function () {
             return {
                 restrict: 'AE',
                 scope: {
