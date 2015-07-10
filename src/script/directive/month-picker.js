@@ -29,6 +29,17 @@
                     }
                 }
             });
+
+            /**
+             * apply value for [$scope.ngModel]
+             * @param value
+             */
+            function applyModel(value) {
+                $scope.ngModel = value;
+            }
+
+            // public method to scope
+            $scope.applyModel = applyModel;
         }]).
         directive('webMonthPicker', [function () {
             return {

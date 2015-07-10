@@ -3,6 +3,36 @@
         webMonthPicker
     </div>
     <div class="panel-body">
+        <div class="form-horizontal">
+            <!--model-->
+            <div class="form-group">
+                <label class="col-xs-4 control-label">model</label>
+                <div class="col-xs-8">
+                    <input type="number" class="form-control" ng-model="model"/>
+                </div>
+            </div>
+
+            <!--ngModel-->
+            <div class="form-group">
+                <label class="col-xs-4 control-label">ngModel</label>
+                <div class="col-xs-8">
+                    <input type="number" class="form-control" ng-model="ngModel"/>
+                </div>
+            </div>
+
+            <!--apply model-->
+            <div class="form-group">
+                <label class="col-xs-4 control-label">ngModel</label>
+                <div class="col-xs-8">
+                    <button type="button" class="btn btn-default btn-block" ng-click="applyModel(model)">
+                        applyModel(model)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--picker-->
+        <hr/>
         <div class="col-xs-3" ng-repeat="month in months">
             <button class="btn btn-default btn-block"
                     ng-click="model = month"
