@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        webMonthPicker
+    </div>
+    <div class="panel-body">
+        <div class="col-xs-3" ng-repeat="month in months">
+            <button class="btn btn-default btn-block"
+                    ng-click="model = month"
+                    ng-class="{'btn-primary': month == model}">
+                {{month + 1}}
+            </button>
+        </div>
+    </div>
+</div>
