@@ -14,10 +14,13 @@ gulp.task('script.clean', function() {
 // javascript task
 var jsSrc = [
     config.src.script + 'main.js',
+    config.src.script + 'constant/*.js',
     config.src.script + 'provider/*.js',
+    config.src.script + 'service/*.js',
     config.src.script + 'factory/*.js',
     config.src.script + 'directive/*.js',
-    config.src.script + 'filter/*.js'
+    config.src.script + 'filter/*.js',
+    config.src.script + 'controller/*.js'
 ];
 gulp.task('script', ['script.clean'], function() {
     return gulp.src(jsSrc).        
