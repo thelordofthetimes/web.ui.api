@@ -5,7 +5,7 @@
      * internal api:
      *  - ngModel {DateTime}: value of date picker
      *  - model {DateTime}: copy value of date picker
-     *  - ctrl {object}: component controller. todo parse that
+     *  - ctrl {object}: component controller. todo: describe this
      *  - years {Array}: array[16] of int, contains years
      *  - months: {Array}: array{0..11} of int, contains month
      *  - days: {Array}: array[DAY_LENGTH] of {object}
