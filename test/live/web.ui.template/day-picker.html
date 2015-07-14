@@ -34,10 +34,17 @@
         <!--picker-->
         <hr/>
         <div class="col-xs-3" ng-repeat="day in days">
+            <!--current month-->
             <button class="btn btn-default btn-block"
-                    ng-click="model = month"
-                    ng-class="{'btn-primary': month == model}">
-                {{month + 1}}
+                    ng-if="day.month == month"
+                    ng-click="model = day.date"
+                    ng-class="{'btn-primary': day.month == month && day.date == model}">
+                {{day.date}}
+            </button>
+
+            <!--out of current month-->
+            <button ng-if="day.month != month" class="btn btn-default btn-block">
+                {{day.date}}
             </button>
         </div>
     </div>

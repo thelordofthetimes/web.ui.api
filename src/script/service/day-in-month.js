@@ -3,7 +3,7 @@
     /**
      * todo: describe web.ui.api.dayInMonth service
      */
-        service('web.ui.api.dayInMonth', [function () {
+        service('web.ui.api.dayInMonth', ['web.ui.api.datePickerConst',function (datePickerConst) {
             /**
              * get array day in month
              * @param year {int} base 0

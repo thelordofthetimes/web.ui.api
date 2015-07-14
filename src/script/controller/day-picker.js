@@ -6,6 +6,7 @@
         controller('WebDayPickerCtrl', ['$scope', '$injector', function ($scope, $injector) {
             var dayInMonth = $injector.get('web.ui.api.dayInMonth');
             var _days;
+            var _model;
 
             /**
              * {Array<int>} get array of days in year-month
@@ -13,6 +14,18 @@
             Object.defineProperty($scope, 'days', {
                 get: function () {
                     return _days;
+                }
+            });
+
+            /**
+             * {int} get/set model (date)
+             */
+            Object.defineProperty($scope, 'model', {
+                get: function() {
+                    return _model;
+                },
+                set: function(value) {
+                    _model = value;
                 }
             });
 

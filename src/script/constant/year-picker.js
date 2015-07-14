@@ -1,6 +1,6 @@
 (function(angular) {
     angular.module('web.ui.api').
-        constant('yearPickerConst', {
+        constant('web.ui.api.yearPickerConst', {
             PAGE_SIZE: 12
         });
 })(angular);

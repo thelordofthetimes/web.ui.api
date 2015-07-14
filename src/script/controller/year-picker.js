@@ -6,7 +6,7 @@
         controller('WebYearPickerCtrl', ['$scope', '$injector', function ($scope, $injector) {
             var $filter = $injector.get('$filter');
             var yearPaging = $injector.get('web.ui.api.yearPaging');
-            var yearPickerConst = $injector.get('yearPickerConst');
+            var yearPickerConst = $injector.get('web.ui.api.yearPickerConst');
             var _pageIndex;
             var _pageSize;
             var _model = angular.copy($scope.ngModel);
